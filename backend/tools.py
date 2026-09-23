@@ -27,8 +27,9 @@ ROOT = HERE.parent
 DB_PATH = ROOT / "data" / "yale_som.db"
 load_dotenv(ROOT / ".env")
 load_dotenv(ROOT.parent / ".env")
+load_dotenv(ROOT.parent.parent / ".env")
 
-MODEL_NAME = "gpt-6-astra"
+MODEL_NAME = "gpt-5.6-luna"
 PORTKEY_BASE_URL = os.getenv("PORTKEY_BASE_URL", "https://api.portkey.ai/v1").rstrip("/")
 MAX_RESULTS = 15
 
@@ -58,7 +59,7 @@ def _client() -> OpenAI:
     return OpenAI(
         api_key=api_key,
         base_url=PORTKEY_BASE_URL,
-        default_headers={"x-portkey-api-key": api_key},
+        default_headers={"x-portkey-api-key": api_key, "x-portkey-provider": "openai"},
     )
 
 

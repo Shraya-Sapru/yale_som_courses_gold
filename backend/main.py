@@ -22,6 +22,7 @@ ROOT = HERE.parent
 DATA_PATH = ROOT / "data" / "yale_som_classes.json"
 load_dotenv(ROOT / ".env")
 load_dotenv(ROOT.parent / ".env")
+load_dotenv(ROOT.parent.parent / ".env")
 
 app = FastAPI(title="Yale SOM Courses", version="0.1.0")
 app.add_middleware(
