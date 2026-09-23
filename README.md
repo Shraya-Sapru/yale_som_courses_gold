@@ -113,6 +113,14 @@ Then open **http://127.0.0.1:5173**. The API docs are at **http://127.0.0.1:8000
 
 > If the page says "Could not load courses", the backend isn't running yet. Start it and refresh.
 
+## Deploying to Render
+
+`render.yaml` is a Render Blueprint that sets up two services: `yale-som-courses-api` (FastAPI web service) and `yale-som-courses-web` (static site).
+
+1. In Render, click **New > Blueprint** and pick this repo.
+2. Enter `PORTKEY_API_KEY` for the API service.
+3. Enter `VITE_API_URL` for the static site: the API's URL, e.g. `https://yale-som-courses-api.onrender.com` (no trailing slash). If you only know the URL after the first deploy, set it then and redeploy the static site.
+
 ## API
 
 | Method | Route | What it does |

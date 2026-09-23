@@ -1,0 +1,30 @@
+# Render Blueprint: New > Blueprint in the Render dashboard, then pick this repo.
+# Creates two separate services: the FastAPI backend and the Vite static site.
+services:
+  - type: web
+    name: yale-som-courses-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: PORTKEY_API_KEY
+        sync: false # Render asks for the value when you create the Blueprint
+
+  - type: web
+    name: yale-som-courses-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false # the backend URL, e.g. https://yale-som-courses-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
